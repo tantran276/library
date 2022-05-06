@@ -1,6 +1,7 @@
 package com.example.tttn.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class RegistrationController {
 	RegistrationService registrationService;
 	
 	@PostMapping
-	public String register(@RequestBody RegistrationRequest request) {
-		return registrationService.register(request);
+	public ResponseEntity<?> register(@RequestBody RegistrationRequest request) {
+		return ResponseEntity.ok().body(registrationService.register(request));
 	}
 }
