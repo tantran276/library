@@ -8,9 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.tttn.security.PasswordEncoder;
+import com.example.tttn.security.jwt.AuthEntryPointJwt;
+import com.example.tttn.security.jwt.AuthTokenFilter;
 import com.example.tttn.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -26,10 +27,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private AuthEntryPointJwt unauthorizedHandler;
+
+	@Bean
+	public AuthTokenFilter authenticationJwtTokenFilter() {
+		return new AuthTokenFilter();
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable()
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.authorizeHttpRequests()
 				.antMatchers("/api/registration/**","/api/login/**")
 				.permitAll()

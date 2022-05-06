@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -31,9 +31,10 @@ import lombok.Setter;
 @Table(name = "user")
 public class User implements UserDetails {
 
-	@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+	private static final long serialVersionUID = 2564506442832390733L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
@@ -61,7 +62,10 @@ public class User implements UserDetails {
 
 	@Column(name = "enabled", nullable = false)
 	private Boolean enabled;
-
+	
+	@OneToOne(mappedBy = "user")
+	private Token token;
+    
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
