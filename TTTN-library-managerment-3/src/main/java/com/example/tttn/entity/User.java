@@ -1,8 +1,9 @@
 package com.example.tttn.entity;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,8 +69,10 @@ public class User implements UserDetails {
     
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new HashSet<>();
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
-		return Collections.singletonList(authority);
+		authorities.add(authority);
+		return authorities;
 	}
 
 	@Override
