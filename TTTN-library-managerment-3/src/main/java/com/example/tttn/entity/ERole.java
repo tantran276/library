@@ -1,6 +1,6 @@
 package com.example.tttn.entity;
 
-public enum UserRole {
+public enum ERole {
 	USER,
 	ADMIN
 }

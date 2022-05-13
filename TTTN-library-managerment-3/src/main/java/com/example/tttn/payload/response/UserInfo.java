@@ -1,8 +1,9 @@
 package com.example.tttn.payload.response;
 
 import java.util.Date;
+import java.util.Set;
 
-import com.example.tttn.entity.UserRole;
+import com.example.tttn.entity.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +18,6 @@ public class UserInfo {
 	private String username;
 	private String email;
 	private Date dateOfBirth;
-	private UserRole roles;
+	private Set<Role> roles;
 	
 }

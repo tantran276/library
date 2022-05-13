@@ -1,5 +1,6 @@
 package com.example.tttn.entity;
 
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +74,9 @@ public class Book {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	private DocumentFormat documentFormat;
+	
+	@Column(name = "image")
+	private Blob image;
 	
 	@Column(name = "price")
 	private long price;

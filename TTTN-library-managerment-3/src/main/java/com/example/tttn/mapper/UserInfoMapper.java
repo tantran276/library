@@ -6,7 +6,7 @@ import com.example.tttn.payload.response.UserInfo;
 public class UserInfoMapper {
 	public static UserInfo toUserInfo(User user) {
 		return new UserInfo(user.getId(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(),
-				user.getDateOfBirth(), user.getUserRole());
+				user.getDateOfBirth(), user.getRoles());
 
 	}
 }

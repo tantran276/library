@@ -1,17 +1,13 @@
 package com.example.tttn.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,21 +19,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "token")
-public class Token {
+@Table(name = "role")
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(name = "value", nullable = false)
-	private String value;
-	
-	@Column(name = "expiration", nullable = false)
-	private Date tokenExpDate;
-	
-	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name ="user_id")
-	private User user;
+	@Column(name = "id")
+	private Integer id;
+
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+	private ERole name;
 }
