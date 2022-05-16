@@ -24,5 +24,20 @@ public class UserServiceImpl implements UserService{
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
+
+	@Override
+	public void saveUser(User user) {
+		userRepository.save(user);
+	}
+
+	@Override
+	public User getUserById(long id) {
+		return userRepository.getById(id);
+	}
+
+	@Override
+	public void deleteById(long id) {
+		userRepository.deleteById(id);
+	}
 	
 }

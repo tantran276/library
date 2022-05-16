@@ -6,12 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,35 +25,28 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "borrow")
-public class Borrow {
+@Table(name = "reservation")
+public class Reservation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "issue_date")
-	private Date issueDate;
+	@Column(name = "reservation_date")
+	private Date reservationDate;
 	
-	@Column(name = "notes")
-	private String notes;
+	@Column(name = "status")
+	private long status;
 	
-	@Column(name = "expected_return_date")
-	private Date expectedReturnDate;
-	
-	@Column(name = "returned")
-	private Date returned;
-	
-	@Column(name = "late")
-	private boolean late;
+	@Column(name = "expiration_date")
+	private Date expirationDate;
 	
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
+	@ManyToMany(mappedBy = "reservations")
+	private List<User> users;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "borrow", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<BorrowedBook> borrowedBooks;
+	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Book> books;
 }

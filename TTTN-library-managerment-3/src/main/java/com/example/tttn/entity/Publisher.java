@@ -37,4 +37,12 @@ public class Publisher {
 	@JsonIgnore
 	@OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Book> books;
+
+	public Publisher(String name, List<Book> books) {
+		super();
+		this.name = name;
+		this.books = books;
+	}
+	
+	  
 }

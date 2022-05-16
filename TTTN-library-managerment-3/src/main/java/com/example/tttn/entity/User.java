@@ -15,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -62,20 +60,13 @@ public class User{
 
 	@Column(name = "date_of_birth", nullable = false)
 	private Date dateOfBirth;
-
-	@Column(name = "enabled", nullable = false)
-	private Boolean enabled;
 	
+	@Column(name = "create_date", nullable = false)
+	private Date createDate;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "users")
 	private List<Book> books;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Borrow> borrows;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SignUpBorrow> signUpBorrows;
 }

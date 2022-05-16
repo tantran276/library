@@ -1,8 +1,8 @@
 package com.example.tttn.entity;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -41,27 +42,23 @@ public class Book {
 	@Column(name = "isbn", length = 13, nullable = false)
 	private String isbn;
 
-	@Column(name = "title", length = 60, nullable = false)
+	@Column(name = "title", nullable = false)
 	private String title;
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "book_tag", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	private List<Tag> tags;
+	private Set<Tag> tags;
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "book_liked", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> users;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<SignUpBorrow> signUpBorrows;
+	private Set<User> users;
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-	private List<Author> authors;
+	private Set<Author> authors;
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -69,14 +66,14 @@ public class Book {
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	private LeafCategory leafCategory;
+	private Category category;
 	
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	private DocumentFormat documentFormat;
+	@Lob
+	@Column(name = "image", columnDefinition = "MEDIUMBLOB")
+	private byte[] image;
 	
-	@Column(name = "image")
-	private Blob image;
+	@Column(name = "content")
+	private String content;
 	
 	@Column(name = "price")
 	private long price;
@@ -86,4 +83,13 @@ public class Book {
 	
 	@Column(name = "create_date")
 	private Date createDate;
+	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Reservation reservation;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BorrowBook> borrowBooks;
+	
 }

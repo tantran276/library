@@ -1,6 +1,6 @@
 package com.example.tttn.entity;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,5 +34,13 @@ public class Tag {
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "tags")
-	private Collection<Book> books;
+	private List<Book> books;
+
+	public Tag(String name, List<Book> books) {
+		super();
+		this.name = name;
+		this.books = books;
+	}
+	
+	
 }

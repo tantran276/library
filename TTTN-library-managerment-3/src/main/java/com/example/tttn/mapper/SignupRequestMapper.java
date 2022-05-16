@@ -1,5 +1,7 @@
 package com.example.tttn.mapper;
 
+import java.util.Date;
+
 import com.example.tttn.entity.User;
 import com.example.tttn.payload.request.SignupRequest;
 
@@ -12,7 +14,7 @@ public class SignupRequestMapper {
 		user.setFirstName(request.getFirstName());
 		user.setLastName(request.getLastName());
 		user.setDateOfBirth(request.getDateOfBirth());
-		user.setEnabled(true);
+		user.setCreateDate(new Date(System.currentTimeMillis()));
 		return user;
 	}
 }

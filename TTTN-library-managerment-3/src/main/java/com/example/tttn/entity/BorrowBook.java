@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,34 +23,27 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "signup_borrow")
-public class SignUpBorrow {
+@Table(name = "borrow_book")
+public class BorrowBook {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "signup_borrow_date")
-	private Date signUpBorrowDate;
-	
-	@Column(name = "expected_borrow_date")
-	private Date expectedBorrowDate;
-	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
-	
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "book_id")
 	private Book book;
 	
-	@Column(name = "borrowed")
-	private boolean borrowed;
+	@Column(name = "borrow_date")
+	private Date borrowDate;
 	
-	@Column(name = "status")
-	private boolean status;
+	@Column(name = "expiration_date")
+	private Date expirationDate;
 	
+	@Column(name = "return_date")
+	private Date returnDate;
+	
+	@Column(name = "penalty")
+	private long penalty;
 }

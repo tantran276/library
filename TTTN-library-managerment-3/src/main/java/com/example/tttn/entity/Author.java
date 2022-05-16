@@ -30,11 +30,18 @@ public class Author {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "name", length = 60, nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "authors")
 	private List<Book> books;
 
+	public Author(String name, List<Book> books) {
+		super();
+		this.name = name;
+		this.books = books;
+	}
+
+	
 }
